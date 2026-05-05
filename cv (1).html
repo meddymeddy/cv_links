@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV – Full Stack Web Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0d;
+    --paper: #f5f0e8;
+    --accent: #c0392b;
+    --muted: #7a7060;
+    --rule: #d4cfc4;
+    --highlight: #fff8e7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.5;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 60px auto;
+    padding: 64px 72px;
+    background: #fdfaf4;
+    border: 1px solid var(--rule);
+    box-shadow: 0 4px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.06);
+    position: relative;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Corner decoration */
+  .page::before, .page::after {
+    content: '';
+    position: absolute;
+    width: 40px; height: 40px;
+    border-color: var(--accent);
+    border-style: solid;
+  }
+  .page::before { top: 16px; left: 16px; border-width: 2px 0 0 2px; }
+  .page::after  { bottom: 16px; right: 16px; border-width: 0 2px 2px 0; }
+
+  /* Header */
+  header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+    padding-bottom: 28px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 36px;
+  }
+
+  .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -1px;
+  }
+
+  .name span {
+    display: block;
+    color: var(--accent);
+  }
+
+  .title-tag {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  .contact-block {
+    text-align: right;
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 2;
+  }
+
+  .contact-block a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .contact-block a:hover { border-color: var(--accent); }
+
+  /* Section */
+  section {
+    margin-bottom: 36px;
+    animation: fadeUp 0.6s ease both;
+  }
+  section:nth-child(2) { animation-delay: 0.08s; }
+  section:nth-child(3) { animation-delay: 0.14s; }
+  section:nth-child(4) { animation-delay: 0.20s; }
+  section:nth-child(5) { animation-delay: 0.26s; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .section-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* Skills grid */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .skill-card {
+    background: var(--highlight);
+    border: 1px solid var(--rule);
+    padding: 14px 16px;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .skill-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+  }
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+  }
+
+  .skill-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .skill-desc {
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* Project */
+  .project-card {
+    border: 1px solid var(--rule);
+    padding: 20px 22px;
+    background: var(--highlight);
+    position: relative;
+    transition: box-shadow 0.2s;
+  }
+  .project-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.08); }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+
+  .project-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .project-year {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 10px 0;
+  }
+
+  .tag {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .tag.accent { border-color: var(--accent); color: var(--accent); }
+
+  .project-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-top: 10px;
+  }
+
+  /* About / summary */
+  .summary {
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--ink);
+    border-left: 3px solid var(--accent);
+    padding-left: 18px;
+  }
+
+  /* Education / Attributes list */
+  .attr-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 24px;
+  }
+
+  .attr-list li {
+    font-size: 12px;
+    color: var(--muted);
+    padding-left: 14px;
+    position: relative;
+  }
+  .attr-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    font-size: 10.5px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 36px 28px; margin: 20px; }
+    header { grid-template-columns: 1fr; }
+    .contact-block { text-align: left; }
+    .name { font-size: 34px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .attr-list { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div>
+      <div class="name">Alex<span>Mercer</span></div>
+      <div class="title-tag">Full Stack Web Developer</div>
+    </div>
+    <div class="contact-block">
+      <a href="mailto:alex.mercer@email.com">alex.mercer@email.com</a><br>
+      <a href="https://github.com/alexmercer" target="_blank">github.com/alexmercer</a><br>
+      <a href="https://alexmercer.dev" target="_blank">alexmercer.dev</a><br>
+      +1 (555) 000-1234
+    </div>
+  </header>
+
+  <section>
+    <div class="section-header">
+      <span class="section-label">Profile</span>
+      <div class="section-rule"></div>
+    </div>
+    <p class="summary">
+      Full stack web developer with strong expertise in PHP/MVC architecture and relational databases. I build clean, maintainable web applications with well-documented code, integrating REST APIs and delivering polished frontends using modern HTML, CSS, and JavaScript. I value clear communication as much as clean code.
+    </p>
+  </section>
+
+  <section>
+    <div class="section-header">
+      <span class="section-label">Technical Skills</span>
+      <div class="section-rule"></div>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="skill-title">PHP & MVC Architecture</div>
+        <div class="skill-desc">Strong proficiency in PHP with hands-on experience structuring applications using MVC patterns. Comfortable with Laravel, CodeIgniter, or custom MVC frameworks.</div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-title">MySQL & PDO CRUD</div>
+        <div class="skill-desc">Experienced in designing relational schemas and building secure Create/Read/Update/Delete features using PDO with prepared statements to prevent SQL injection.</div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-title">Frontend Development</div>
+        <div class="skill-desc">Solid command of HTML5, CSS3, JavaScript (ES6+), and Bootstrap. Builds responsive, accessible UIs with attention to layout, usability, and cross-browser compatibility.</div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-title">REST API Integration</div>
+        <div class="skill-desc">Able to consume third-party REST APIs using cURL and fetch, and to design simple API endpoints. Familiar with JSON, HTTP methods, authentication headers, and error handling.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-header">
+      <span class="section-label">Featured Project</span>
+      <div class="section-rule"></div>
+    </div>
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-name">TaskFlow — Project Management App</div>
+        <div class="project-year">2024</div>
+      </div>
+      <div class="project-tech">
+        <span class="tag accent">PHP</span>
+        <span class="tag accent">MVC</span>
+        <span class="tag">MySQL / PDO</span>
+        <span class="tag">Bootstrap 5</span>
+        <span class="tag">REST API</span>
+        <span class="tag">JavaScript</span>
+      </div>
+      <div class="project-desc">
+        A full-featured task and project management web application built from scratch. Features include user authentication, role-based access, real-time task status updates via AJAX, and integration with a third-party email notification API. The codebase follows a clean MVC structure with thorough inline documentation and a README covering setup, schema, and API usage. Deployed on a shared host with a MySQL backend and a responsive Bootstrap frontend.
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-header">
+      <span class="section-label">Soft Skills & Practices</span>
+      <div class="section-rule"></div>
+    </div>
+    <ul class="attr-list">
+      <li>Clear written communication</li>
+      <li>Thorough code documentation</li>
+      <li>Git version control habits</li>
+      <li>Agile / iterative mindset</li>
+      <li>Self-directed learner</li>
+      <li>Team collaboration</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-header">
+      <span class="section-label">Education</span>
+      <div class="section-rule"></div>
+    </div>
+    <ul class="attr-list">
+      <li>B.Sc. Computer Science — State University, 2022</li>
+      <li>PHP & MySQL Certification — Online, 2023</li>
+      <li>Bootstrap & Responsive Design — Coursera, 2023</li>
+      <li>REST APIs with PHP — Udemy, 2024</li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>CV — Alex Mercer — Full Stack Developer</span>
+    <span>Updated May 2026</span>
+  </footer>
+
+</div>
+</body>
+</html>
